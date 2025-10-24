@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon Europe Green Digital Transition Open Call 2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Design System CSS */
+        :root {
+            /* Primitive Color Tokens */
+            --color-white: rgba(255, 255, 255, 1);
+            --color-black: rgba(0, 0, 0, 1);
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-cream-100: rgba(255, 255, 253, 1);
+            --color-gray-200: rgba(245, 245, 245, 1);
+            --color-gray-300: rgba(167, 169, 169, 1);
+            --color-gray-400: rgba(119, 124, 124, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-brown-600: rgba(94, 82, 64, 1);
+            --color-charcoal-700: rgba(31, 33, 33, 1);
+            --color-charcoal-800: rgba(38, 40, 40, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-teal-300: rgba(50, 184, 198, 1);
+            --color-teal-400: rgba(45, 166, 178, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            --color-teal-600: rgba(29, 116, 128, 1);
+            --color-teal-700: rgba(26, 104, 115, 1);
+            --color-teal-800: rgba(41, 150, 161, 1);
+            --color-red-400: rgba(255, 84, 89, 1);
+            --color-red-500: rgba(192, 21, 47, 1);
+            --color-orange-400: rgba(230, 129, 97, 1);
+            --color-orange-500: rgba(168, 75, 47, 1);
+        
+            /* EU Project Colors */
+            --eu-blue-primary: #003399;
+            --eu-blue-secondary: #0066CC;
+            --eu-yellow: #FFD700;
+            --eu-green: #228B22;
+            --eu-red: #DC143C;
+        
+            /* RGB versions for opacity control */
+            --color-brown-600-rgb: 94, 82, 64;
+            --color-teal-500-rgb: 33, 128, 141;
+            --color-slate-900-rgb: 19, 52, 59;
+            --color-slate-500-rgb: 98, 108, 113;
+            --color-red-500-rgb: 192, 21, 47;
+            --color-red-400-rgb: 255, 84, 89;
+            --color-orange-500-rgb: 168, 75, 47;
+            --color-orange-400-rgb: 230, 129, 97;
+        
+            /* Background color tokens (Light Mode) */
+            --color-bg-1: rgba(59, 130, 246, 0.08);
+            --color-bg-2: rgba(245, 158, 11, 0.08);
+            --color-bg-3: rgba(34, 197, 94, 0.08);
+            --color-bg-4: rgba(239, 68, 68, 0.08);
+            --color-bg-5: rgba(147, 51, 234, 0.08);
+            --color-bg-6: rgba(249, 115, 22, 0.08);
+            --color-bg-7: rgba(236, 72, 153, 0.08);
+            --color-bg-8: rgba(6, 182, 212, 0.08);
+        
+            /* Semantic Color Tokens (Light Mode) */
+            --color-background: var(--color-cream-50);
+            --color-surface: var(--color-cream-100);
+            --color-text: var(--color-slate-900);
+            --color-text-secondary: var(--color-slate-500);
+            --color-primary: var(--eu-blue-primary);
+            --color-primary-hover: var(--eu-blue-secondary);
+            --color-primary-active: var(--color-teal-700);
+            --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+            --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-btn-primary-text: var(--color-cream-50);
+            --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-error: var(--color-red-500);
+            --color-success: var(--eu-green);
+            --color-warning: var(--color-orange-500);
+            --color-info: var(--color-slate-500);
+            --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+            --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+        
+            /* Typography */
+            --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            --font-size-xs: 11px;
+            --font-size-sm: 12px;
+            --font-size-base: 14px;
+            --font-size-md: 14px;
+            --font-size-lg: 16px;
+            --font-size-xl: 18px;
+            --font-size-2xl: 20px;
+            --font-size-3xl: 24px;
+            --font-size-4xl: 30px;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 550;
+            --font-weight-bold: 600;
+            --line-height-tight: 1.2;
+            --line-height-normal: 1.5;
+            --letter-spacing-tight: -0.01em;
+        
+            /* Spacing */
+            --space-0: 0;
+            --space-1: 1px;
+            --space-2: 2px;
+            --space-4: 4px;
+            --space-6: 6px;
+            --space-8: 8px;
+            --space-10: 10px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-20: 20px;
+            --space-24: 24px;
+            --space-32: 32px;
+        
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-base: 8px;
+            --radius-md: 10px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+        
+            /* Shadows */
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+        
+            /* Animation */
+            --duration-fast: 150ms;
+            --duration-normal: 250ms;
+            --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+        
+            /* Layout */
+            --container-sm: 640px;
+            --container-md: 768px;
+            --container-lg: 1024px;
+            --container-xl: 1280px;
+        }
+        
+        /* Base styles */
+        html {
+            font-size: var(--font-size-base);
+            font-family: var(--font-family-base);
+            line-height: var(--line-height-normal);
+            color: var(--color-text);
+            background-color: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            font-weight: var(--font-weight-semibold);
+            line-height: var(--line-height-tight);
+            color: var(--color-text);
+            letter-spacing: var(--letter-spacing-tight);
+        }
+        
+        h1 { font-size: var(--font-size-4xl); }
+        h2 { font-size: var(--font-size-3xl); }
+        h3 { font-size: var(--font-size-2xl); }
+        h4 { font-size: var(--font-size-xl); }
+        h5 { font-size: var(--font-size-lg); }
+        h6 { font-size: var(--font-size-md); }
+        
+        p {
+            margin: 0 0 var(--space-16) 0;
+        }
+        
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color var(--duration-fast) var(--ease-standard);
+        }
+        
+        a:hover {
+            color: var(--color-primary-hover);
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-8) var(--space-16);
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            line-height: 1.5;
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-standard);
+            border: none;
+            text-decoration: none;
+            position: relative;
+        }
+        
+        .btn:focus-visible {
+            outline: none;
+            box-shadow: var(--focus-ring);
+        }
+        
+        .btn--primary {
+            background: var(--color-primary);
+            color: var(--color-btn-primary-text);
+        }
+        
+        .btn--primary:hover {
+            background: var(--color-primary-hover);
+        }
+        
+        .btn--secondary {
+            background: var(--color-secondary);
+            color: var(--color-text);
+        }
+        
+        .btn--secondary:hover {
+            background: var(--color-secondary-hover);
+        }
+        
+        .btn--outline {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+        }
+        
+        .btn--outline:hover {
+            background: var(--color-secondary);
+        }
+        
+        .btn--success {
+            background: var(--color-success);
+            color: white;
+        }
+        
+        .btn--danger {
+            background: var(--color-error);
+            color: white;
+        }
+        
+        .btn--sm {
+            padding: var(--space-4) var(--space-12);
+            font-size: var(--font-size-sm);
+            border-radius: var(--radius-sm);
+        }
+        
+        .btn--lg {
+            padding: var(--space-10) var(--space-20);
+            font-size: var(--font-size-lg);
+            border-radius: var(--radius-md);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Form elements */
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: var(--space-8) var(--space-12);
+            font-size: var(--font-size-md);
+            line-height: 1.5;
+            color: var(--color-text);
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+        }
+        
+        .form-control:focus {
+            border-color: var(--color-primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 51, 153, 0.1);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: var(--space-8);
+            font-weight: var(--font-weight-medium);
+            font-size: var(--font-size-sm);
+        }
+        
+        .form-group {
+            margin-bottom: var(--space-16);
+        }
+        
+        .form-error {
+            color: var(--color-error);
+            font-size: var(--font-size-sm);
+            margin-top: var(--space-4);
+        }
+        
+        /* Card component */
+        .card {
+            background-color: var(--color-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-card-border);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: box-shadow var(--duration-normal) var(--ease-standard);
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .card__body {
+            padding: var(--space-16);
+        }
+        
+        .card__header {
+            padding: var(--space-16);
+            border-bottom: 1px solid var(--color-card-border-inner);
+            background: var(--color-bg-1);
+        }
+        
+        .card__footer {
+            padding: var(--space-16);
+            border-top: 1px solid var(--color-card-border-inner);
+            background: var(--color-bg-2);
+        }
+        
+        /* Status indicators */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-6) var(--space-12);
+            border-radius: var(--radius-full);
+            font-weight: var(--font-weight-medium);
+            font-size: var(--font-size-sm);
+        }
+        
+        .status--draft { background: #f3f4f6; color: #374151; }
+        .status--submitted { background: #dbeafe; color: var(--eu-blue-primary); }
+        .status--review { background: #fef3c7; color: #92400e; }
+        .status--underreview { background: #fef3c7; color: #92400e; }
+        .status--approved { background: #d1fae5; color: var(--eu-green); }
+        .status--rejected { background: #fee2e2; color: var(--eu-red); }
+        
+        /* Container layout */
+        .container {
+            width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+            padding-right: var(--space-16);
+            padding-left: var(--space-16);
+        }
+        
+        @media (min-width: 640px) { .container { max-width: var(--container-sm); } }
+        @media (min-width: 768px) { .container { max-width: var(--container-md); } }
+        @media (min-width: 1024px) { .container { max-width: var(--container-lg); } }
+        @media (min-width: 1280px) { .container { max-width: var(--container-xl); } }
+        
+        /* Utility classes */
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-4 { gap: var(--space-4); }
+        .gap-8 { gap: var(--space-8); }
+        .gap-16 { gap: var(--space-16); }
+        .grid { display: grid; }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+        
+        .hidden { display: none; }
+        .block { display: block; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .font-bold { font-weight: var(--font-weight-bold); }
+        .text-lg { font-size: var(--font-size-lg); }
+        .text-xl { font-size: var(--font-size-xl); }
+        .text-2xl { font-size: var(--font-size-2xl); }
+        
+        .mt-4 { margin-top: var(--space-4); }
+        .mt-8 { margin-top: var(--space-8); }
+        .mt-16 { margin-top: var(--space-16); }
+        .mb-4 { margin-bottom: var(--space-4); }
+        .mb-8 { margin-bottom: var(--space-8); }
+        .mb-16 { margin-bottom: var(--space-16); }
+        .py-8 { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+        .py-16 { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+        .px-8 { padding-left: var(--space-8); padding-right: var(--space-8); }
+        .px-16 { padding-left: var(--space-16); padding-right: var(--space-16); }
+        .p-4 { padding: var(--space-4); }
+        .p-8 { padding: var(--space-8); }
+        .p-16 { padding: var(--space-16); }
+        
+        /* Custom styles */
+        .header {
+            background: linear-gradient(135deg, var(--eu-blue-primary) 0%, var(--eu-blue-secondary) 100%);
+            color: white;
+            padding: var(--space-16) 0;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: var(--space-8);
+            margin: var(--space-16) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .nav-tab {
+            padding: var(--space-8) var(--space-16);
+            background: none;
+            border: none;
+            font-size: var(--font-size-base);
+            cursor: pointer;
+            color: var(--color-text-secondary);
+            border-bottom: 2px solid transparent;
+            transition: all var(--duration-fast);
+        }
+        
+        .nav-tab.active {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+        }
+        
+        .nav-tab:hover {
+            color: var(--color-primary-hover);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-16);
+            margin: var(--space-24) 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: var(--space-24);
+        }
+        
+        .stat-number {
+            font-size: var(--font-size-4xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+            margin-top: var(--space-8);
+        }
+        
+        .countdown {
+            background: var(--eu-yellow);
+            color: var(--color-text);
+            padding: var(--space-16);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            font-weight: var(--font-weight-bold);
+        }
+        
+        .form-section {
+            margin-bottom: var(--space-32);
+            padding: var(--space-24);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-lg);
+            background: var(--color-surface);
+        }
+        
+        .form-section-title {
+            margin-bottom: var(--space-16);
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: var(--space-8);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-16);
+        }
+        
+        .word-counter {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            text-align: right;
+            margin-top: var(--space-4);
+        }
+        
+        .word-counter.over-limit {
+            color: var(--color-error);
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-16) 0;
+        }
+        
+        .table th,
+        .table td {
+            padding: var(--space-8) var(--space-12);
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .table th {
+            background: var(--color-bg-1);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text);
+        }
+        
+        .table tr:hover {
+            background: var(--color-bg-2);
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: var(--color-surface);
+            padding: var(--space-24);
+            border-radius: var(--radius-lg);
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: var(--space-16);
+            right: var(--space-16);
+            background: none;
+            border: none;
+            font-size: var(--font-size-xl);
+            cursor: pointer;
+            color: var(--color-text-secondary);
+        }
+        
+        .notification {
+            position: fixed;
+            top: var(--space-16);
+            right: var(--space-16);
+            padding: var(--space-16);
+            border-radius: var(--radius-base);
+            color: white;
+            z-index: 1001;
+            min-width: 300px;
+        }
+        
+        .notification--success {
+            background: var(--color-success);
+        }
+        
+        .notification--error {
+            background: var(--color-error);
+        }
+        
+        .score-slider {
+            width: 100%;
+            margin: var(--space-8) 0;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: var(--space-16) 0;
+        }
+        
+        .admin-login {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: var(--space-32);
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+            margin-bottom: var(--space-16);
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+        
+        .breadcrumb a {
+            color: var(--color-primary);
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .table {
+                font-size: var(--font-size-sm);
+            }
+            
+            .chart-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1>🇪🇺 Horizon Europe</h1>
+                    <p class="mt-4" style="margin: 0; opacity: 0.9;">Green Digital Transition Open Call 2025</p>
+                </div>
+                <div class="text-right">
+                    <div style="font-size: var(--font-size-sm); opacity: 0.8;">Funded by the European Union</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showView('dashboard')">📊 Dashboard</button>
+            <button class="nav-tab" onclick="showView('submit')">📝 Submit Proposal</button>
+            <button class="nav-tab" onclick="showView('mysubmissions')">📋 My Submissions</button>
+            <button class="nav-tab" onclick="showView('admin')">🔐 Admin Portal</button>
+            <button class="nav-tab" onclick="showView('settings')">⚙️ Settings</button>
+        </div>
+
+        <!-- Dashboard View -->
+        <div id="dashboard-view" class="view">
+            <div class="breadcrumb">
+                <span>Home</span> › <span>Dashboard</span>
+            </div>
+            
+            <div class="card mb-16">
+                <div class="card__body">
+                    <h2 class="mb-8">Horizon Europe Green Digital Transition Open Call 2025</h2>
+                    <p class="mb-8">Funding opportunity for innovative projects combining digital technologies with sustainability objectives. This call supports breakthrough solutions that contribute to Europe's green and digital transformation.</p>
+                    
+                    <div class="countdown mb-16">
+                        ⏰ <strong>Deadline:</strong> <span id="countdown-timer">November 30, 2025</span> - <span id="days-remaining"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="card stat-card">
+                    <span class="stat-number" id="total-submissions">0</span>
+                    <div class="stat-label">Total Submissions</div>
+                </div>
+                <div class="card stat-card">
+                    <span class="stat-number" id="under-review">0</span>
+                    <div class="stat-label">Under Review</div>
+                </div>
+                <div class="card stat-card">
+                    <span class="stat-number" id="approved-submissions">0</span>
+                    <div class="stat-label">Approved</div>
+                </div>
+                <div class="card stat-card">
+                    <span class="stat-number" id="rejected-submissions">0</span>
+                    <div class="stat-label">Rejected</div>
+                </div>
+                <div class="card stat-card">
+                    <span class="stat-number" id="average-score">0</span>
+                    <div class="stat-label">Average Score</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-16 mt-24">
+                <div class="card">
+                    <div class="card__header">
+                        <h3>📈 Submissions by Status</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="chart-container">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__header">
+                        <h3>🌍 Submissions by Country</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="chart-container">
+                            <canvas id="countryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Proposal View -->
+        <div id="submit-view" class="view hidden">
+            <div class="breadcrumb">
+                <span>Home</span> › <span>Submit Proposal</span>
+            </div>
+            
+            <h2 class="mb-16">📝 Submit Your Proposal</h2>
+            
+            <form id="proposal-form">
+                <div class="form-section">
+                    <h3 class="form-section-title">👥 Applicant Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Organization/Individual Name *</label>
+                            <input type="text" name="applicant_name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Primary Contact Email *</label>
+                            <input type="email" name="applicant_email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Country *</label>
+                            <select name="country" class="form-control" required>
+                                <option value="">Select country...</option>
+                                <option value="Austria">Austria</option>
+                                <option value="Belgium">Belgium</option>
+                                <option value="Bulgaria">Bulgaria</option>
+                                <option value="Croatia">Croatia</option>
+                                <option value="Cyprus">Cyprus</option>
+                                <option value="Czech Republic">Czech Republic</option>
+                                <option value="Denmark">Denmark</option>
+                                <option value="Estonia">Estonia</option>
+                                <option value="Finland">Finland</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Greece">Greece</option>
+                                <option value="Hungary">Hungary</option>
+                                <option value="Ireland">Ireland</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Latvia">Latvia</option>
+                                <option value="Lithuania">Lithuania</option>
+                                <option value="Luxembourg">Luxembourg</option>
+                                <option value="Malta">Malta</option>
+                                <option value="Netherlands">Netherlands</option>
+                                <option value="Poland">Poland</option>
+                                <option value="Portugal">Portugal</option>
+                                <option value="Romania">Romania</option>
+                                <option value="Slovakia">Slovakia</option>
+                                <option value="Slovenia">Slovenia</option>
+                                <option value="Spain">Spain</option>
+                                <option value="Sweden">Sweden</option>
+                                <option value="Switzerland">Switzerland</option>
+                                <option value="Norway">Norway</option>
+                                <option value="Iceland">Iceland</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Organization Type *</label>
+                            <select name="organization_type" class="form-control" required>
+                                <option value="">Select type...</option>
+                                <option value="Research Institution">Research Institution</option>
+                                <option value="SME">SME</option>
+                                <option value="Large Enterprise">Large Enterprise</option>
+                                <option value="NGO">NGO</option>
+                                <option value="Public Body">Public Body</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Website URL</label>
+                            <input type="url" name="website" class="form-control" placeholder="https://">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="form-section-title">🚀 Project Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label class="form-label">Project Title * (max 200 characters)</label>
+                            <input type="text" name="project_title" class="form-control" maxlength="200" required>
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label class="form-label">Project Summary/Abstract * (250 words)</label>
+                            <textarea name="project_summary" id="project-summary" class="form-control" rows="4" required></textarea>
+                            <div id="summary-counter" class="word-counter">0/250 words</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Funding Amount Requested (EUR) *</label>
+                            <input type="number" name="funding_amount" class="form-control" min="10000" max="60000" required>
+                            <small class="form-help">Between €10,000 and €60,000</small>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Project Duration (months) *</label>
+                            <input type="number" name="duration_months" class="form-control" min="6" max="24" required>
+                            <small class="form-help">Between 6 and 24 months</small>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Technology Readiness Level *</label>
+                            <select name="trl" class="form-control" required>
+                                <option value="">Select TRL...</option>
+                                <option value="TRL 1">TRL 1 - Basic principles observed</option>
+                                <option value="TRL 2">TRL 2 - Technology concept formulated</option>
+                                <option value="TRL 3">TRL 3 - Experimental proof of concept</option>
+                                <option value="TRL 4">TRL 4 - Technology validated in lab</option>
+                                <option value="TRL 5">TRL 5 - Technology validated in relevant environment</option>
+                                <option value="TRL 6">TRL 6 - Technology demonstrated in relevant environment</option>
+                                <option value="TRL 7">TRL 7 - System prototype demonstration</option>
+                                <option value="TRL 8">TRL 8 - System complete and qualified</option>
+                                <option value="TRL 9">TRL 9 - Actual system proven in operational environment</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Project Category *</label>
+                            <select name="category" class="form-control" required>
+                                <option value="">Select category...</option>
+                                <option value="Energy Efficiency">Energy Efficiency</option>
+                                <option value="Renewable Energy">Renewable Energy</option>
+                                <option value="Digital Sustainability">Digital Sustainability</option>
+                                <option value="Circular Economy">Circular Economy</option>
+                                <option value="Climate Adaptation">Climate Adaptation</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="form-section-title">📋 Project Details</h3>
+                    <div class="form-group">
+                        <label class="form-label">Innovation Description * (500 words)</label>
+                        <textarea name="innovation_description" id="innovation-description" class="form-control" rows="6" required></textarea>
+                        <div id="innovation-counter" class="word-counter">0/500 words</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Expected Impact * (300 words)</label>
+                        <textarea name="expected_impact" id="expected-impact" class="form-control" rows="4" required></textarea>
+                        <div id="impact-counter" class="word-counter">0/300 words</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Work Plan Summary * (400 words)</label>
+                        <textarea name="work_plan" id="work-plan" class="form-control" rows="5" required></textarea>
+                        <div id="workplan-counter" class="word-counter">0/400 words</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Budget Breakdown *</label>
+                        <textarea name="budget_breakdown" class="form-control" rows="4" placeholder="Personnel: €X, Equipment: €Y, Travel: €Z, Other: €W" required></textarea>
+                        <small class="form-help">Please provide breakdown for Personnel, Equipment, Travel, and Other costs</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="form-section-title">📎 File Upload &amp; Submission</h3>
+                    <div class="form-group">
+                        <label class="form-label">Supporting Documents</label>
+                        <div class="card" style="background: var(--color-bg-3); border: 2px dashed var(--color-border); text-align: center; padding: var(--space-32);">
+                            <p>📁 File upload functionality will be configured with SharePoint integration</p>
+                            <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Supported formats: PDF, DOC, DOCX, XLS, XLSX (max 10MB each)</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" required style="margin-right: var(--space-8);">
+                            I confirm that all information provided is accurate and I agree to the terms and conditions *
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex gap-16 justify-center">
+                    <button type="button" class="btn btn--outline btn--lg" onclick="showNotification('Draft saved functionality will be implemented with backend storage')">💾 Save as Draft</button>
+                    <button type="button" class="btn btn--primary btn--lg" onclick="submitProposal()">🚀 Submit Proposal</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- My Submissions View -->
+        <div id="mysubmissions-view" class="view hidden">
+            <div class="breadcrumb">
+                <span>Home</span> › <span>My Submissions</span>
+            </div>
+            
+            <h2 class="mb-16">📋 My Submissions</h2>
+            
+            <div class="card mb-16">
+                <div class="card__body">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="form-label">Enter your email address to view your submissions</label>
+                        <div class="flex gap-8">
+                            <input type="email" id="search-email" class="form-control" placeholder="your.email@example.com" style="flex: 1;">
+                            <button class="btn btn--primary" onclick="searchMySubmissions()">🔍 Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="my-submissions-list">
+                <p class="text-center py-16">Enter your email address to view your submissions.</p>
+            </div>
+        </div>
+
+        <!-- Admin Portal View -->
+        <div id="admin-view" class="view hidden">
+            <!-- Admin content will be rendered by JavaScript -->
+        </div>
+
+        <!-- Settings View -->
+        <div id="settings-view" class="view hidden">
+            <!-- Settings content will be rendered by JavaScript -->
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
